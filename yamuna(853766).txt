@@ -1,0 +1,29 @@
+L.yamuna(853766)
+ 
+SELECT employee_id,first_name,last_name,salary 
+from employees A
+where salary >(select AVG(salary)from employees B
+where A.department_id=B.department_id
+group by A.department_id);
+
+select department_name,count(employee_id)
+from departments,employees
+where departments.department_id=employees.department_id
+group by department_name
+having count(employee_id)>=20;
+
+
+
+select employee_id,first_name,last_name,(first_name||''||last_name)full_name,salary,(salary*0.1)new_salary,(salary-(salary*0.1))difference
+ from employees
+ 
+ 
+ 
+ 
+ 
+ select  first_name,last_name,salary
+ from (select*from employees order by salary desc)
+ where rownum <=3
+ order by salary;
+ 
+ 
