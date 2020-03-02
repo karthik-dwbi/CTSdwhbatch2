@@ -1,0 +1,39 @@
+1) WRITE A QUERY TO DISPLAY DEPARTMENT_NAME,NO_OF_EMPLOYEES WITH DEPARTMENTS HAVING 20 OR MORE EMPLOYEES.
+ ANS)  select department_name,count(employee_id)
+from employees,departments
+where
+ departments.department_id=employees.department_id
+group by department_name
+having count(employee_id)>=20;
+
+
+
+
+2)WRITE A QUERY TO DISPLAY EMPLOYEE_ID,FIRST_NAME,SALARY FROM EMPLOYEES WHHOSE SALARY GREATER THAN AVERAGE SALARY OF THEIR OWN DEPARTMENTS. 
+ ANS) select employee_id,first_name,last_name,salary
+from employees a
+where salary > ( select avg(salary) from employees b where a.department_id=b.department_id
+group by a.department_id);
+
+
+
+
+
+3)WRITE A QUERY TO DISPLAY FIRST_NAME,LAST_NAME,FULL_NAME,SALARY,NEW_SALARY(SALARY&10%),DIFFERENCE(NEW_SALARY-SALARY).  
+ANS) select employee_id,first_name,last_name,(first_name||' '||last_name)full_name,salary,(salary*0.1)new_salary,(salary-(salary*0.1))difference
+from employees;
+
+
+ 4)DISPLAY EMPLOYEE_ID,FIRST_NAME,LAST_NAME,MANAGER FIRST_NAME,WITH PRESIDENT MANAGERS FIRST NAME IS NULL?
+ANS)  SELECT A.EMPLOYEE_ID,A.FIRST_NAME,A.LAST_NAME,B.FIRST_NAME AS MANAGER_NAME
+	FROM EMPLOYEES A LEFT OUTER JOIN EMPLOYEES B
+	ON A.MANAGER_ID = B.MANAGER_ID
+	ORDER BY EMPLOYEE_ID;
+
+
+
+
+5) DISPLAY TOP 3 HIGHEST SALARY EMPLOYEES(EMPLOYEE_ID,FIRST_NAME,SALARY).
+ ANS) select employee_id,first_name,salary from (select * from employees order by salary desc)
+where rownum <=3;
+
