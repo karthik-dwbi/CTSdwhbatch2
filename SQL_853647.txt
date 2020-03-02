@@ -1,0 +1,29 @@
+1.
+select departments.department_name, count(employee_id) 
+from departments
+inner join employees
+on departments.department_id=employees.department_id
+group by department_name
+having count(employee_id)>20;
+
+
+2.
+select employee_id,First_name,Last_name,salary
+from employees o
+where salary >(select avg(i.salary)
+from employees i
+where o.department_id=i.department_id
+group by i.department_id);
+
+
+3.
+select  employee_id,First_name,Last_name,(First_name||' '||Last_name) AS Full_Name,Salary,(Salary+(Salary*0.1)) AS New_Salary,(Salary+(Salary*0.1) - (Salary) )AS Difference
+from employees;
+
+
+
+5. 
+select employee_id,first_name,salary from employees
+where rownum<=3
+order by salary desc;
+
