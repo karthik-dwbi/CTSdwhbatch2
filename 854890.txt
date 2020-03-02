@@ -1,0 +1,37 @@
+
+              v. manish
+          
+1 . write a query to display depaertment_name,no_of_employees with departments having 20 or more employees
+
+select department_name,  count(employees_id) as no_of_employees
+from departments d  
+inner join employees e
+on  e.department_id=d.department_id
+groupby department_name
+having count(employee_id)>20;
+
+
+2. write a query to display employee_id,first_name,last_name,salary from employees whose salary greater than average salary of the own department
+
+select employee_id,first_name,last_name,salary
+from employees e
+where salary > (select avg(salary)from employees x where e.department_id=x.department_id group by e.employee_id)
+
+3. write a query to display employee_id,first_name ,last_name,full_name,salary,new_salary(salary*10%),diff(new_salary-salary)
+
+select employee_id,first_name,last_name,(first_name||' '||last_name)full_name,salary,(salary*0.1)new_salary, 
+(salary-(salary*0.1))difference
+from employees 
+
+
+
+4. display employee_id,first_name,last_name,manager_first_name,with president manager_first_name is null
+
+
+
+5. top three highest salary of employees , first_name , salary 
+
+select employee_id,first_name,salary
+from (select * from employees order by salary desc)
+where rownum > 3
+order by salary;
