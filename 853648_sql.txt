@@ -1,0 +1,19 @@
+1)select Department_Name, Count(Employee_ID) as No_of_Employees 
+From Departments D Inner Join Employees E
+ON(E.Department_ID=D.Department_ID)
+Group By Department_Name
+Having count(Employee_ID) >=20;
+
+2) select Employee_ID, First_Name, Last_Name, Salary From Employees p
+Where Salary>(select Avg(salary) from Employees q
+Where (p.Department_ID=q.Department_ID)
+Group by p.Employee_ID);
+
+3)select Employee_ID, First_Name, Last_Name, (First_Name||' '||Last_Name) as FULL_NAME , Salary, (Salary+(salary/10)) as new_salary,
+((Salary*(salary/10))-Salary) as DIFFERENCE
+From Employees;
+
+5)select employee_id, First_Name, Salary 
+from employees
+where rownum <= 3
+Order by Salary DESC;
