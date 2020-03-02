@@ -1,0 +1,30 @@
+SELECT department_name,COUNT(employee_id)
+FROM departments,employees
+WHERE departments.department_id=employees.department_id
+GROUP BY department_name
+HAVING COUNT(employee_id)>=20;
+
+
+SELECT employee_id,first_name,last_name,salary
+FROM employees A
+WHERE salary > (SELECT AVG(salary) 
+FROM employees B
+WHERE A.department_id=B.department_id
+GROUP BY A.department_id)
+
+
+SELECT employee_id,first_name,last_name,
+(first_name||''||last_name)full_name,
+salary,(salary*0.1)new_salary,(salary-(salary*0.1))
+DIFFERENCE from employees;
+
+SELECT A.employee_id,A.first_name,A.last_name,B.first_name AS manager_name
+FROM employees A
+LEFT OUTER JOIN employees B on A.manager_id = B.manager_id
+ORDER BY employee_id;
+
+SELECT employee_id,first_name,salary
+FROM (select*from employees
+ORDER BY salary desc)
+WHERE ROWNUM <=3
+ORDER BY salary;
