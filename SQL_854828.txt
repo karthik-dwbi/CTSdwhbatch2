@@ -1,0 +1,33 @@
+1.write a query to display department_name,no_of_employees with departments having 20 or more employees
+
+select department_name, count(employee_id) as no_of_employees from employees e join departments d on 
+e.department_id=d.department_id
+group by department_name
+having count(employee_id)>20;
+
+2.write a query to display employee_id,first_name,last_name,salary from employees whose salary greater than average salary of the own department
+ 
+select employee_id,first_name,last_name,salary from employees a
+where salary>(select avg(salary) from employees b
+where a.department_id=b.department_id
+group by a.department_id);
+
+
+3.write a query to dis[play employee_id,first_name ,last_name,full_name,salary,new_salary(salary*10%),diff(new_salary-salary)
+
+ select employee_id,first_name ,last_name,(first_name||''||last_name) as full_name,salary,
+  (salary*0.1) as new_salary,(new_salary-salary) as diffrence from employee
+
+4.display employee_id,first_name,last_name,manager_first_name,with president manager_first_name is null
+
+
+select a.employee_id,a.first_name,a.last_name,b.first_name as manager_name from employees a 
+left outer join employees b on a.manager_id=b.manager_id
+order by employee_id;
+
+5. top three highest salary of employees employee_id, first_name , salary 
+
+select employee_id,first_name,salary from (select * from employees order by salary desc)
+where rownum <=3
+order by salary desc;
+
